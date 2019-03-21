@@ -347,6 +347,7 @@ impl io::Read for DecompressionReader {
 }
 
 fn default_decompression_commands() -> Vec<DecompressionCommand> {
+    const ARGS_ZIP: &[&str] = &["unzip", "-p", "-qq"];
     const ARGS_GZIP: &[&str] = &["gzip", "-d", "-c"];
     const ARGS_BZIP: &[&str] = &["bzip2", "-d", "-c"];
     const ARGS_XZ: &[&str] = &["xz", "-d", "-c"];
@@ -367,6 +368,7 @@ fn default_decompression_commands() -> Vec<DecompressionCommand> {
         }
     }
     vec![
+        cmd("*.zip", ARGS_ZIP),
         cmd("*.gz", ARGS_GZIP),
         cmd("*.tgz", ARGS_GZIP),
         cmd("*.bz2", ARGS_BZIP),
